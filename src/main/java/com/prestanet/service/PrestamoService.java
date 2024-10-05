@@ -9,5 +9,5 @@ import java.util.List;
 
 @Service
 public interface PrestamoService {
-    PrestamoDTO registrarSolicitud(PrestamoDTO prestamoDTO, String dniCliente);
+    Prestamo registrarSolicitud(Prestamo prestamo);
 }
