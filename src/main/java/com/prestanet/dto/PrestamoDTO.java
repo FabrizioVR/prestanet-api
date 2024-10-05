@@ -14,6 +14,10 @@ public class PrestamoDTO {
 
     private int idPrestamo;
 
+    private int idUsuario;
+
+    private int idCliente;
+
     @NotNull(message = "Monto obligatorio")
     @Positive(message = "El monto debe ser un número positivo")
     private double monto;
