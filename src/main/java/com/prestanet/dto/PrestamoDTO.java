@@ -18,7 +18,7 @@ public class PrestamoDTO {
     @Positive(message = "El monto debe ser un número positivo")
     private double monto;
 
-    @NotNull(message = "Tipo obligatorio")  // Cambiado a @NotNull
+    @NotNull(message = "Tipo obligatorio")
     private TipoPrestamo tipoPrestamo = TipoPrestamo.UN_MES;
 
     @NotNull(message = "Interés obligatorio")

@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Optional;
 
+
 @Service
 public class PrestamoServiceImpl implements PrestamoService {
+
     private final PrestamoRepository prestamoRepository;
     private final ClienteRepository clienteRepository;
     private final PrestamoMapper prestamoMapper;
@@ -33,7 +35,7 @@ public class PrestamoServiceImpl implements PrestamoService {
             throw new IllegalArgumentException("El DNI debe tener exactamente 8 dígitos.");
         }
 
-        // Buscar cliente por DNI utilizando el método correcto
+        // Buscar cliente por DNI
         Optional<Cliente> clienteOpt = clienteRepository.findByDni(dniCliente);
         if (clienteOpt.isEmpty()) {
             throw new IllegalArgumentException("Cliente con DNI " + dniCliente + " no encontrado.");
@@ -47,8 +49,7 @@ public class PrestamoServiceImpl implements PrestamoService {
         // Guardar en la base de datos
         Prestamo prestamoGuardado = prestamoRepository.save(prestamo);
 
-        // Asegúrate de que el préstamo guardado se devuelva correctamente
+        // Devolver el préstamo guardado como DTO
         return prestamoMapper.toDTO(prestamoGuardado);
     }
-
 }

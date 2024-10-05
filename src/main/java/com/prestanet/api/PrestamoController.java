@@ -2,12 +2,15 @@ package com.prestanet.api;
 
 
 import com.prestanet.dto.PrestamoDTO;
+import com.prestanet.model.entity.Prestamo;
 import com.prestanet.service.PrestamoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Validated
 @RestController
@@ -22,9 +25,8 @@ public class PrestamoController {
     }
 
     @PostMapping("/solicitud")
-    public ResponseEntity<String> registrarSolicitudPrestamo(@Valid @RequestBody PrestamoDTO prestamoDTO) {
-        prestamoService.registrarSolicitud(prestamoDTO, prestamoDTO.getDni());
+    public ResponseEntity<String> registrarSolicitudPrestamo(@Valid @RequestBody PrestamoDTO prestamoDTO, @RequestParam String dniCliente) {
+        prestamoService.registrarSolicitud(prestamoDTO, dniCliente);
         return ResponseEntity.ok("La solicitud de préstamo fue recibida correctamente.");
     }
-
 }
