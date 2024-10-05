@@ -16,13 +16,6 @@ public class Cliente {
     @Column(name= "nombre_cliente", nullable = false)
     private String nombreCliente;
 
-    @Column(name= "DNI", length = 8)
-    private String DNI;
-
-    @Column(name= "RUC", length = 11)
-    private String RUC;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name= "tipo_cliente", nullable = false)
-    private TipoCLiente tipoCLiente= TipoCLiente.NATURAL;
+    @Column(name= "dni", length = 8, nullable = false)
+    private String dni;
 }
