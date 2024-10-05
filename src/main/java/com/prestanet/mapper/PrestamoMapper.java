@@ -14,7 +14,7 @@ public class PrestamoMapper {
     }
 
     public PrestamoDTO toDTO(Prestamo prestamo) {
-            return modelMapper.map(prestamo, PrestamoDTO.class);
+        return modelMapper.map(prestamo, PrestamoDTO.class);
     }
 
     public Prestamo toEntity(PrestamoDTO prestamoDTO) {
