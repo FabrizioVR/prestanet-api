@@ -48,4 +48,10 @@ public class ClienteServiceImpl implements ClienteService {
     public void delete(int id) {
         clienteRepository.deleteById(id);
     }
+
+
+    @Override
+    public Optional<Cliente> findByDni(String dni) {
+        return clienteRepository.findByDni(dni);  // Implementar el método correctamente
+    }
 }
