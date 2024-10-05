@@ -10,4 +10,7 @@ public class UsuarioDTO {
 
     @NotBlank(message = "El nombre es obligatorio")
     private String nombreUsuario;
+
+    @NotBlank(message = "El contraseña es obligatorio")
+    private String contraseña;
 }
