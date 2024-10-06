@@ -4,6 +4,7 @@ import com.prestanet.dto.PrestamoDTO;
 import com.prestanet.mapper.PrestamoMapper;
 import com.prestanet.model.entity.Cliente;
 import com.prestanet.model.entity.Prestamo;
+import com.prestanet.model.enums.TipoPrestamo;
 import com.prestanet.repository.ClienteRepository;
 import com.prestanet.repository.PrestamoRepository;
 import com.prestanet.service.PrestamoService;
@@ -41,10 +42,29 @@ public class PrestamoServiceImpl implements PrestamoService {
             throw new IllegalArgumentException("Cliente con DNI " + dniCliente + " no encontrado.");
         }
 
+        // Verificar si el cliente puede solicitar otro préstamo
+        LocalDate fechaUltimoPrestamo = prestamoRepository.findTopByClienteOrderByFechaSolicitudDesc(clienteOpt.get())
+                .map(Prestamo::getFechaSolicitud).orElse(null);
+
+        if (fechaUltimoPrestamo != null) {
+            LocalDate fechaLimite;
+            if (prestamoDTO.getTipoPrestamo() == TipoPrestamo.UN_MES) {
+                fechaLimite = fechaUltimoPrestamo.plusMonths(1);
+            } else { // SEIS_MESES
+                fechaLimite = fechaUltimoPrestamo.plusMonths(6);
+            }
+            if (!LocalDate.now().isAfter(fechaLimite)) {
+                throw new IllegalArgumentException("El cliente no puede solicitar otro préstamo hasta " + fechaLimite);
+            }
+        }
+
         // Asignar cliente y fecha de solicitud al préstamo
         Prestamo prestamo = prestamoMapper.toEntity(prestamoDTO);
         prestamo.setFechaSolicitud(LocalDate.now());
         prestamo.setCliente(clienteOpt.get());
+
+        // Calcular interés
+        prestamo.calcularInteres();
 
         // Guardar en la base de datos
         Prestamo prestamoGuardado = prestamoRepository.save(prestamo);

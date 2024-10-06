@@ -40,4 +40,14 @@ public class Prestamo {
     @JoinColumn(name = "id_cliente", referencedColumnName = "idCliente",
             foreignKey = @ForeignKey(name = "FK_prestamo_cliente"))
     private Cliente cliente;
+
+
+    // Método para calcular el interés
+    public void calcularInteres() {
+        if (tipoPrestamo == TipoPrestamo.UN_MES) {
+            this.interes = this.monto * 0.10; // 10% de interés
+        } else if (tipoPrestamo == TipoPrestamo.SEIS_MESES) {
+            this.interes = this.monto * 0.20; // 20% de interés
+        }
+    }
 }

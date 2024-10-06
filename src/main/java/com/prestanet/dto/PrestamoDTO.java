@@ -22,7 +22,7 @@ public class PrestamoDTO {
     @Positive(message = "El monto debe ser un número positivo")
     private double monto;
 
-    @NotNull(message = "Tipo obligatorio")
+    @NotNull(message = "Tipo obligatorio")  // Cambiado a @NotNull
     private TipoPrestamo tipoPrestamo = TipoPrestamo.UN_MES;
 
     @NotNull(message = "Interés obligatorio")
@@ -39,4 +39,12 @@ public class PrestamoDTO {
     @Size(min = 8, max = 8, message = "El DNI debe tener exactamente 8 dígitos")
     private String dni;
 
+    // Método para calcular el interés basado en el tipo de préstamo
+    public void calcularInteres() {
+        if (this.tipoPrestamo == TipoPrestamo.UN_MES) {
+            this.interes = 0.10 * monto; // 10% de interés
+        } else if (this.tipoPrestamo == TipoPrestamo.SEIS_MESES) {
+            this.interes = 0.20 * monto; // 20% de interés
+        }
+    }
 }
