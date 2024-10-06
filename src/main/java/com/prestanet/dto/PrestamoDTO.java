@@ -18,7 +18,7 @@ public class PrestamoDTO {
     @Positive(message = "El monto debe ser un número positivo")
     private double monto;
 
-    @NotNull(message = "Tipo obligatorio")  // Cambiado a @NotNull
+    @NotNull(message = "Tipo obligatorio")
     private TipoPrestamo tipoPrestamo = TipoPrestamo.UN_MES;
 
     @NotNull(message = "Interés obligatorio")
@@ -34,4 +34,8 @@ public class PrestamoDTO {
     @NotBlank(message = "DNI es obligatorio")
     @Size(min = 8, max = 8, message = "El DNI debe tener exactamente 8 dígitos")
     private String dni;
+
+    @NotNull(message = "ID de usuario es obligatorio")
+    private Integer idUsuario;  // Agregamos la ID del usuario
+
 }

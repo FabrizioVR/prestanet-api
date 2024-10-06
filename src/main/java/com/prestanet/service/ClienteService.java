@@ -15,5 +15,5 @@ public interface ClienteService {
     void delete(int id);
 
     /////
-    Optional<Cliente> findByDni(String dni);
+    Optional<Cliente> buscarClientePorDni(String dni);
 }
