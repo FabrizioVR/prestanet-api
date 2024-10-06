@@ -2,10 +2,16 @@ package com.prestanet.api;
 
 
 import com.prestanet.dto.UsuarioDTO;
+import com.prestanet.model.entity.Usuario;
 import com.prestanet.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.List;
 
@@ -53,4 +59,18 @@ public class UsuarioController {
         usuarioService.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
     }
-}
+    
+    //Iniciar sesion
+    @GetMapping("/login")
+    public ResponseEntity<?> iniciarSesion(@RequestBody LoginRequest loginRequest) {
+        Usuario usuario = usuarioService.iniciarSesion(loginRequest.getNombreUsuario(), loginRequest.getContraseña());
+
+        if (usuario != null) {
+            return ResponseEntity.ok(usuario);  // Devuelve el objeto Usuario si es exitoso
+        } else {
+            return ResponseEntity.status(401).body("Nombre de usuario o contraseña incorrectos.");
+        }
+    }
+    }
+
+

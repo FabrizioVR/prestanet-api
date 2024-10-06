@@ -8,6 +8,8 @@ import com.prestanet.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,4 +61,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void eliminarUsuario(int id) {
         usuarioRepository.deleteById(id);
     }
+
+
+    public Usuario iniciarSesion(String nombreUsuario, String contraseña) {
+        return usuarioRepository.findByNombreUsuarioAndContraseña(nombreUsuario, contraseña);
+    }
+
 }
