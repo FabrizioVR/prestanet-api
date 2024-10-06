@@ -38,4 +38,5 @@ public class PrestamoDTO {
     @NotBlank(message = "DNI es obligatorio")
     @Size(min = 8, max = 8, message = "El DNI debe tener exactamente 8 dígitos")
     private String dni;
+
 }
