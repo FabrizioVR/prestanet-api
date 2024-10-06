@@ -1,6 +1,5 @@
 package com.prestanet.api;
 
-
 import com.prestanet.dto.PrestamoDTO;
 
 import com.prestanet.service.PrestamoService;
@@ -26,7 +25,7 @@ public class PrestamoController {
 
     @PostMapping("/solicitud")
     public ResponseEntity<String> registrarSolicitudPrestamo(@Valid @RequestBody PrestamoDTO prestamoDTO,
-                                                             @RequestParam String dniCliente) {
+            @RequestParam String dniCliente) {
         // Establecer la fecha de solicitud a la fecha actual
         prestamoDTO.setFechaSolicitud(LocalDate.now());
 
@@ -41,7 +40,8 @@ public class PrestamoController {
         // Llamar al servicio para registrar la solicitud
         prestamoService.registrarSolicitud(prestamoDTO, dniCliente);
 
-        return ResponseEntity.ok("La solicitud de préstamo fue recibida correctamente. Interés calculado: " + prestamoDTO.getInteres());
+        return ResponseEntity.ok(
+                "La solicitud de préstamo fue recibida correctamente. Interés calculado: " + prestamoDTO.getInteres());
     }
 
 }
