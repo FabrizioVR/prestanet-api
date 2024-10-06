@@ -15,6 +15,8 @@ public class CronogramaPagoDTO {
 
     private int idCronograma;
 
+    private int idPrestamo;
+
     @NotNull(message = "La fecha del cronograma es obligatoria")
     private LocalDate fechaCronograma;
 
