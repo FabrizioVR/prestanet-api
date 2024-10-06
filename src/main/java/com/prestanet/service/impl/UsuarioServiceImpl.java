@@ -59,4 +59,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void eliminarUsuario(int id) {
         usuarioRepository.deleteById(id);
     }
+
+
+    public Usuario iniciarSesion(String nombreUsuario, String contraseña) {
+        return usuarioRepository.findByNombreUsuarioAndContraseña(nombreUsuario, contraseña);
+    }
+
 }

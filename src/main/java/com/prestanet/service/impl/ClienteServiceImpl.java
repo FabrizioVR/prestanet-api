@@ -4,8 +4,6 @@ package com.prestanet.service.impl;
 import com.prestanet.model.entity.Cliente;
 import com.prestanet.repository.ClienteRepository;
 import com.prestanet.service.ClienteService;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -51,7 +49,7 @@ public class ClienteServiceImpl implements ClienteService {
 
 
     @Override
-    public Optional<Cliente> findByDni(String dni) {
-        return clienteRepository.findByDni(dni);  // Implementar el método correctamente
+    public Optional<Cliente> buscarClientePorDni(String dni) {
+        return clienteRepository.findByDni(dni); // Asumiendo que tienes un método en el repositorio para esto
     }
 }

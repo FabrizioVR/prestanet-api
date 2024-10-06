@@ -4,6 +4,7 @@ import com.prestanet.dto.PrestamoDTO;
 import com.prestanet.mapper.PrestamoMapper;
 import com.prestanet.model.entity.Cliente;
 import com.prestanet.model.entity.Prestamo;
+import com.prestanet.model.enums.TipoPrestamo;
 import com.prestanet.repository.ClienteRepository;
 import com.prestanet.repository.PrestamoRepository;
 import com.prestanet.service.PrestamoService;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Optional;
 
+
 @Service
 public class PrestamoServiceImpl implements PrestamoService {
+
     private final PrestamoRepository prestamoRepository;
     private final ClienteRepository clienteRepository;
     private final PrestamoMapper prestamoMapper;
@@ -33,10 +36,26 @@ public class PrestamoServiceImpl implements PrestamoService {
             throw new IllegalArgumentException("El DNI debe tener exactamente 8 dígitos.");
         }
 
-        // Buscar cliente por DNI utilizando el método correcto
+        // Buscar cliente por DNI
         Optional<Cliente> clienteOpt = clienteRepository.findByDni(dniCliente);
         if (clienteOpt.isEmpty()) {
             throw new IllegalArgumentException("Cliente con DNI " + dniCliente + " no encontrado.");
+        }
+
+        // Verificar si el cliente puede solicitar otro préstamo
+        LocalDate fechaUltimoPrestamo = prestamoRepository.findTopByClienteOrderByFechaSolicitudDesc(clienteOpt.get())
+                .map(Prestamo::getFechaSolicitud).orElse(null);
+
+        if (fechaUltimoPrestamo != null) {
+            LocalDate fechaLimite;
+            if (prestamoDTO.getTipoPrestamo() == TipoPrestamo.UN_MES) {
+                fechaLimite = fechaUltimoPrestamo.plusMonths(1);
+            } else { // SEIS_MESES
+                fechaLimite = fechaUltimoPrestamo.plusMonths(6);
+            }
+            if (!LocalDate.now().isAfter(fechaLimite)) {
+                throw new IllegalArgumentException("El cliente no puede solicitar otro préstamo hasta " + fechaLimite);
+            }
         }
 
         // Asignar cliente y fecha de solicitud al préstamo
@@ -44,11 +63,13 @@ public class PrestamoServiceImpl implements PrestamoService {
         prestamo.setFechaSolicitud(LocalDate.now());
         prestamo.setCliente(clienteOpt.get());
 
+        // Calcular interés
+        prestamo.calcularInteres();
+
         // Guardar en la base de datos
         Prestamo prestamoGuardado = prestamoRepository.save(prestamo);
 
-        // Asegúrate de que el préstamo guardado se devuelva correctamente
+        // Devolver el préstamo guardado como DTO
         return prestamoMapper.toDTO(prestamoGuardado);
     }
-
 }

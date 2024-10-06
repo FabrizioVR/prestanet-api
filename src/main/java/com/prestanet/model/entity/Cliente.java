@@ -1,6 +1,5 @@
 package com.prestanet.model.entity;
 
-import com.prestanet.model.enums.TipoCLiente;
 import jakarta.persistence.*;
 import lombok.Data;
 
