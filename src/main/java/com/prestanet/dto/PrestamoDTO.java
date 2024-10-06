@@ -25,11 +25,10 @@ public class PrestamoDTO {
     @NotNull(message = "Tipo obligatorio")  // Cambiado a @NotNull
     private TipoPrestamo tipoPrestamo = TipoPrestamo.UN_MES;
 
-    @NotNull(message = "Interés obligatorio")
-    @Positive(message = "El interés debe ser un número positivo")
+
     private double interes;
 
-    @NotNull(message = "Fecha obligatoria")
+
     private LocalDate fechaSolicitud;
 
     @NotBlank(message = "Nombre del cliente es obligatorio")
