@@ -26,7 +26,7 @@ public class CronogramaPago {
     @Column(name= "estado_pago", nullable = false)
     private EstadoPago estadoPago = EstadoPago.EN_PROCESO;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "id_prestamo", referencedColumnName = "idPrestamo",
             foreignKey = @ForeignKey(name = "FK_cronograma_prestamo"))
