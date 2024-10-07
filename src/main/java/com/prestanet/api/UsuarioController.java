@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin(origins = "https://prestamos-insoii.onrender.com")
+@CrossOrigin(origins = "https://prestamos-insoii.onrender.com", methods = { "GET", "POST" })
 public class UsuarioController {
     private final UsuarioService usuarioService;
 

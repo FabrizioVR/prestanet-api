@@ -17,9 +17,14 @@ public class ModelMapperConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200", "https://prestamos-insoii.onrender.com")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("*")
-                .allowCredentials(true);
+                .allowedOrigins(
+                    "http://localhost:4200",  // Frontend local
+                    "https://prestamos-insoii.onrender.com"  // Agregue el dominio actual para permitir el acceso
+                )
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Incluye OPTIONS para preflight requests
+                .allowedHeaders("Content-Type", "Authorization", "Access-Control-Allow-Origin")  // Especifica encabezados permitidos
+                .exposedHeaders("Authorization")  // Permite que el frontend acceda a la cabecera 'Authorization' si es necesario
+                .allowCredentials(true)  // Habilita envío de credenciales (por ejemplo, cookies)
+                .maxAge(3600);  // Especifica el tiempo en segundos que los resultados de las solicitudes preflight se pueden almacenar en caché
     }
 }

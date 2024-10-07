@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/cronograma")
+@CrossOrigin(origins = "https://prestamos-insoii.onrender.com", methods = { "GET", "POST" })
 public class CronogramaPagoController {
 
     @Autowired

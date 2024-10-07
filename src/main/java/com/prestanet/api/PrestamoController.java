@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Validated
 @RestController
 @RequestMapping("/prestamos")
+@CrossOrigin(origins = "https://prestamos-insoii.onrender.com", methods = { "GET", "POST" })
 public class PrestamoController {
 
     private final PrestamoService prestamoService;

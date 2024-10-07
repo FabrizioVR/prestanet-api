@@ -1,5 +1,6 @@
 package com.prestanet.api;
 
+@CrossOrigin(origins = "https://prestamos-insoii.onrender.com", methods = { "GET", "POST" })
 public class LoginRequest {
     private String nombreUsuario;
     private String contrasena; // Asegúrate de que coincida

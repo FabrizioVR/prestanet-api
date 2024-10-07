@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
+@CrossOrigin(origins = "https://prestamos-insoii.onrender.com", methods = { "GET", "POST" })
 public class ClienteController {
 
     @Autowired
