@@ -19,7 +19,8 @@ public class ModelMapperConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins(
                     "http://localhost:4200",  // Frontend local
-                    "https://prestamos-insoii.onrender.com"  // Agregue el dominio actual para permitir el acceso
+                    "https://prestamos-insoii.onrender.com",
+                    "https://prestamos-insoii.onrender.com/login"  // Agregue el dominio actual para permitir el acceso
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Incluye OPTIONS para preflight requests
                 .allowedHeaders("Content-Type", "Authorization", "Access-Control-Allow-Origin")  // Especifica encabezados permitidos
