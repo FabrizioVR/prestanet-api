@@ -17,7 +17,7 @@ public class ModelMapperConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200", "https://prestamos-insoii.onrender.com/")
+                .allowedOrigins("http://localhost:4200", "https://prestamos-insoii.onrender.com")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*")
                 .allowCredentials(true);
