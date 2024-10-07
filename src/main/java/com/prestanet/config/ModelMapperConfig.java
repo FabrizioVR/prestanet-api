@@ -9,23 +9,26 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class ModelMapperConfig implements WebMvcConfigurer {
 
+    // Bean de ModelMapper para facilitar la conversión entre DTOs y entidades.
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
 
+    /**
+     * Configuración global de CORS para permitir acceso controlado a la API desde diferentes orígenes.
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins(
-                    "http://localhost:4200",  // Frontend local
-                    "https://prestamos-insoii.onrender.com",
-                    "https://prestamos-insoii.onrender.com/login"  // Agregue el dominio actual para permitir el acceso
+                    "http://localhost:4200",  // Origen del frontend local para desarrollo
+                    "https://prestamos-insoii.onrender.com"  // Origen de la aplicación desplegada en producción
                 )
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Incluye OPTIONS para preflight requests
-                .allowedHeaders("Content-Type", "Authorization", "Access-Control-Allow-Origin")  // Especifica encabezados permitidos
-                .exposedHeaders("Authorization")  // Permite que el frontend acceda a la cabecera 'Authorization' si es necesario
-                .allowCredentials(true)  // Habilita envío de credenciales (por ejemplo, cookies)
-                .maxAge(3600);  // Especifica el tiempo en segundos que los resultados de las solicitudes preflight se pueden almacenar en caché
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")  // Métodos HTTP permitidos
+                .allowedHeaders("*")  // Permitir todos los encabezados
+                .exposedHeaders("Authorization")  // Cabeceras expuestas que se pueden leer desde el cliente
+                .allowCredentials(true)  // Habilitar el uso de cookies y credenciales en las solicitudes CORS
+                .maxAge(3600);  // Cache de preflight (CORS OPTIONS) en segundos
     }
 }
